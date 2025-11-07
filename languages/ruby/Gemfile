@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+ruby "3.2.0"
+
+# No additional gems needed for this simple Hello World
+# gem "rails", "~> 7.0"

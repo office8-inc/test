@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  python:
+    build:
+      context: ./languages/python
+      dockerfile: Dockerfile
+    container_name: hello-python
+    networks:
+      - hello-network
+
+  nodejs:
+    build:
+      context: ./languages/nodejs
+      dockerfile: Dockerfile
+    container_name: hello-nodejs
+    networks:
+      - hello-network
+
+  go:
+    build:
+      context: ./languages/go
+      dockerfile: Dockerfile
+    container_name: hello-go
+    networks:
+      - hello-network
+
+  java:
+    build:
+      context: ./languages/java
+      dockerfile: Dockerfile
+    container_name: hello-java
+    networks:
+      - hello-network
+
+  csharp:
+    build:
+      context: ./languages/csharp
+      dockerfile: Dockerfile
+    container_name: hello-csharp
+    networks:
+      - hello-network
+
+  nextjs:
+    build:
+      context: ./languages/nextjs
+      dockerfile: Dockerfile
+    container_name: hello-nextjs
+    ports:
+      - "3000:3000"
+    networks:
+      - hello-network
+
+  ruby:
+    build:
+      context: ./languages/ruby
+      dockerfile: Dockerfile
+    container_name: hello-ruby
+    networks:
+      - hello-network
+
+networks:
+  hello-network:
+    driver: bridge

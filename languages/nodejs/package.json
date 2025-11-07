@@ -1,0 +1,9 @@
+{
+  "name": "hello-world-nodejs",
+  "version": "1.0.0",
+  "description": "Hello World in Node.js",
+  "main": "hello.js",
+  "scripts": {
+    "start": "node hello.js"
+  }
+}
