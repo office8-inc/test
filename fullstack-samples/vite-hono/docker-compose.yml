@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Vite + Hono バックエンド
+  hono-backend:
+    build: ./backend
+    container_name: vite-hono-backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - vite-hono-network
+
+  # Vite + Hono フロントエンド
+  hono-frontend:
+    build: ./frontend
+    container_name: vite-hono-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - hono-backend
+    networks:
+      - vite-hono-network
+
+networks:
+  vite-hono-network:
+    driver: bridge

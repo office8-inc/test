@@ -29,6 +29,22 @@
     "8006": {
       "label": "Ruby",
       "onAutoForward": "notify"
+    },
+    "3001": {
+      "label": "Hono API (Backend)",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "label": "Vite + Hono (Frontend)",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "FastAPI (Backend)",
+      "onAutoForward": "notify"
+    },
+    "5174": {
+      "label": "Vite + FastAPI (Frontend)",
+      "onAutoForward": "notify"
     }
   }
 }
