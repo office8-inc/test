@@ -2,6 +2,6 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY hello.py .
+COPY server.py .
 
-CMD ["python", "hello.py"]
+CMD ["python", "server.py"]

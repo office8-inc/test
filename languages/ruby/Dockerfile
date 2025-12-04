@@ -3,9 +3,8 @@ FROM ruby:3.2-slim
 WORKDIR /app
 
 COPY Gemfile* ./
-
 RUN bundle install
 
-COPY hello.rb .
+COPY server.rb .
 
-CMD ["ruby", "hello.rb"]
+CMD ["ruby", "server.rb"]

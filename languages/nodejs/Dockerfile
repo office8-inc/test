@@ -2,8 +2,6 @@ FROM node:18-slim
 
 WORKDIR /app
 
-COPY package.json hello.js ./
+COPY server.js .
 
-RUN npm install
-
-CMD ["npm", "start"]
+CMD ["node", "server.js"]

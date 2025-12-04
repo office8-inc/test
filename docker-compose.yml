@@ -6,6 +6,10 @@ services:
       context: ./languages/python
       dockerfile: Dockerfile
     container_name: hello-python
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./languages/python:/app
     networks:
       - hello-network
 
@@ -14,6 +18,11 @@ services:
       context: ./languages/nodejs
       dockerfile: Dockerfile
     container_name: hello-nodejs
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./languages/nodejs:/app
+      - /app/node_modules
     networks:
       - hello-network
 
@@ -22,6 +31,10 @@ services:
       context: ./languages/go
       dockerfile: Dockerfile
     container_name: hello-go
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./languages/go:/app
     networks:
       - hello-network
 
@@ -30,6 +43,10 @@ services:
       context: ./languages/java
       dockerfile: Dockerfile
     container_name: hello-java
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./languages/java:/app
     networks:
       - hello-network
 
@@ -38,6 +55,10 @@ services:
       context: ./languages/csharp
       dockerfile: Dockerfile
     container_name: hello-csharp
+    ports:
+      - "8005:8005"
+    volumes:
+      - ./languages/csharp:/app
     networks:
       - hello-network
 
@@ -48,6 +69,9 @@ services:
     container_name: hello-nextjs
     ports:
       - "3000:3000"
+    volumes:
+      - ./languages/nextjs:/app
+      - /app/node_modules
     networks:
       - hello-network
 
@@ -56,6 +80,10 @@ services:
       context: ./languages/ruby
       dockerfile: Dockerfile
     container_name: hello-ruby
+    ports:
+      - "8006:8006"
+    volumes:
+      - ./languages/ruby:/app
     networks:
       - hello-network
 

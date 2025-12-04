@@ -1,0 +1,34 @@
+{
+  "remote.autoForwardPorts": true,
+  "remote.autoForwardPortsSource": "hybrid",
+  "remote.portsAttributes": {
+    "3000": {
+      "label": "Next.js",
+      "onAutoForward": "notify"
+    },
+    "8001": {
+      "label": "Python",
+      "onAutoForward": "notify"
+    },
+    "8002": {
+      "label": "Node.js",
+      "onAutoForward": "notify"
+    },
+    "8003": {
+      "label": "Go",
+      "onAutoForward": "notify"
+    },
+    "8004": {
+      "label": "Java",
+      "onAutoForward": "notify"
+    },
+    "8005": {
+      "label": "C#",
+      "onAutoForward": "notify"
+    },
+    "8006": {
+      "label": "Ruby",
+      "onAutoForward": "notify"
+    }
+  }
+}
