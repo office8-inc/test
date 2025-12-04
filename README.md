@@ -1,209 +1,109 @@
-# 🌍 Multi-Language Hello World with Docker
+# 🌐 Fullstack Development Samples
 
-様々なプログラミング言語でHello Worldを表示するDockerベースのプロジェクトです。
+ViteとReactを使ったフルスタック開発の比較サンプルプロジェクトです。
 
-## 📁 プロジェクト構造
+## 📁 プロジェクト構成
 
 ```
 test/
-├── languages/
-│   ├── python/          # Python Hello World
-│   ├── nodejs/          # Node.js Hello World
-│   ├── go/              # Go Hello World
-│   ├── java/            # Java Hello World
-│   ├── csharp/          # C# Hello World
-│   ├── nextjs/          # Next.js Hello World
-│   └── ruby/            # Ruby Hello World
-├── scripts/
-│   └── run.ps1          # 高度な実行スクリプト
-├── docker-compose.yml   # 全言語一括実行
-├── run-all.ps1          # 簡単実行スクリプト
-└── README.md            # このファイル
+├── fullstack-samples/      # フルスタックサンプル
+│   ├── vite-hono/          # Vite + React + Hono (Node.js)
+│   ├── vite-fastapi/       # Vite + React + FastAPI (Python)
+│   └── README.md           # サンプル比較ガイド
+├── languages/              # 各言語のHTTPサーバーサンプル
+│   ├── python/             # Python HTTP Server
+│   ├── nodejs/             # Node.js HTTP Server
+│   ├── go/                 # Go HTTP Server
+│   ├── java/               # Java HTTP Server
+│   ├── csharp/             # C# HTTP Server
+│   ├── nextjs/             # Next.js (React SSR)
+│   └── ruby/               # Ruby HTTP Server
+├── docker-compose.yml      # 言語サーバー一括起動
+└── README.md               # このファイル
 ```
 
-## 🎯 対応言語
+## 🎯 フルスタックサンプル
 
-| 言語 | バージョン | コンテナサイズ | 特徴 |
-|------|------------|----------------|------|
-| 🐍 **Python** | 3.11 | ~45MB | シンプルで読みやすい |
-| 🟨 **Node.js** | 18 | ~35MB | JavaScriptランタイム |
-| 🔵 **Go** | 1.21 | ~10MB | 高速・軽量バイナリ |
-| ☕ **Java** | 17 | ~70MB | JVM言語の代表 |
-| 💜 **C#** | .NET 8.0 | ~55MB | マイクロソフト製 |
-| ⚛️ **Next.js** | 14.0 | ~85MB | React + SSR |
-| 💎 **Ruby** | 3.2 | ~40MB | 開発者フレンドリー |
+バックエンドフレームワークの比較検証用サンプルです。同じTodoアプリを異なるバックエンドで実装しています。
 
-## 🚀 クイックスタート
+| サンプル | フロントエンド | バックエンド | ポート |
+|---------|---------------|-------------|--------|
+| 🔥 **Vite + Hono** | Vite + React + TypeScript | Node.js + Hono | 5173, 3001 |
+| 🐍 **Vite + FastAPI** | Vite + React + TypeScript | Python + FastAPI | 5174, 8000 |
 
-### 必要な環境
+### 起動方法
+
+```bash
+# Hono版を起動
+cd fullstack-samples/vite-hono
+docker-compose up --build
+
+# FastAPI版を起動
+cd fullstack-samples/vite-fastapi
+docker-compose up --build
+```
+
+詳しくは [fullstack-samples/README.md](./fullstack-samples/README.md) をご覧ください。
+
+## 🌍 言語別HTTPサーバー
+
+各言語でブラウザ表示可能なHTTPサーバーを実装しています。
+
+| 言語 | バージョン | ポート | 特徴 |
+|------|------------|--------|------|
+| 🐍 **Python** | 3.11 | 8001 | http.server モジュール |
+| 🟨 **Node.js** | 18 | 8002 | Native http module |
+| 🔵 **Go** | 1.21 | 8003 | net/http package |
+| ☕ **Java** | 17 | 8004 | HttpServer |
+| 💜 **C#** | .NET 8.0 | 8005 | HttpListener |
+| ⚛️ **Next.js** | 14.0 | 3000 | React + SSR + Hot Reload |
+| 💎 **Ruby** | 3.2 | 8006 | WEBrick |
+
+### 起動方法
+
+```bash
+# すべての言語サーバーを起動
+docker-compose up -d
+
+# 特定の言語のみ起動
+docker-compose up -d python
+docker-compose up -d nextjs
+
+# 停止
+docker-compose down
+```
+
+### アクセス
+
+- Python: http://localhost:8001
+- Node.js: http://localhost:8002
+- Go: http://localhost:8003
+- Java: http://localhost:8004
+- C#: http://localhost:8005
+- Ruby: http://localhost:8006
+- Next.js: http://localhost:3000
+
+## 🚀 必要な環境
+
 - Docker Desktop
-- PowerShell (Windows標準)
+- VS Code (推奨)
 
-### すべての言語を一括実行（並列）
-```powershell
-.\run-all.ps1
-```
+## 📚 学習リソース
 
-### すべての言語を順番に実行（順次）
-```powershell
-.\run-sequential.ps1
-```
+このリポジトリは以下を学ぶのに最適です：
 
-### 特定の言語のみ実行
-```powershell
-# Python のみ
-docker-compose run --rm python
+- **フルスタック開発**: Vite + React + バックエンドAPI
+- **Docker**: コンテナ化、マルチサービス構成
+- **HTTPサーバー**: 各言語でのサーバー実装
+- **フレームワーク比較**: Hono vs FastAPI
 
-# Node.js のみ
-docker-compose run --rm nodejs
+---
 
-# Go のみ
-docker-compose run --rm go
-
-# Next.js のみ（Webサーバー起動）
-docker-compose run --rm -p 3000:3000 nextjs
-
-# Ruby のみ
-docker-compose run --rm ruby
-```
-
-## 🛠️ 高度な使用方法
-
-### 詳細スクリプトを使用
-```powershell
-# すべての言語を並列実行
-.\scripts\run.ps1
-
-# すべての言語を順次実行（キー入力で次へ）
-.\scripts\run.ps1 -Sequential
-
-# 特定の言語のみ
-.\scripts\run.ps1 -Language python
-.\scripts\run.ps1 -Language nextjs
-.\scripts\run.ps1 -Language ruby
-
-# ビルドから実行
-.\scripts\run.ps1 -Build
-
-# ビルドから順次実行
-.\scripts\run.ps1 -Build -Sequential
-
-# クリーンアップ
-.\scripts\run.ps1 -Clean
-```
-
-### 手動でDocker操作
-```powershell
-# すべてビルド
-docker-compose build
-
-# すべて実行
-docker-compose up
-
-# 特定の言語をビルドして実行
-docker-compose up --build python
-
-# クリーンアップ
-docker-compose down --rmi all
-```
-
-## 📝 各言語の詳細
-
-### Python (languages/python/)
-- **ファイル**: `hello.py`
-- **特徴**: UTF-8対応、日本語メッセージ
-- **実行**: `python hello.py`
-
-### Node.js (languages/nodejs/)
-- **ファイル**: `hello.js`, `package.json`
-- **特徴**: npm scripts対応
-- **実行**: `npm start`
-
-### Go (languages/go/)
-- **ファイル**: `hello.go`, `go.mod`
-- **特徴**: マルチステージビルドで軽量化
-- **実行**: `go run hello.go`
-
-### Java (languages/java/)
-- **ファイル**: `HelloWorld.java`
-- **特徴**: コンパイル＋実行
-- **実行**: `javac HelloWorld.java && java HelloWorld`
-
-### C# (languages/csharp/)
-- **ファイル**: `Program.cs`, `HelloWorld.csproj`
-- **特徴**: .NET 8.0、マルチステージビルド
-- **実行**: `dotnet run`
-
-### Next.js (languages/nextjs/)
-- **ファイル**: `pages/index.tsx`, `package.json`
-- **特徴**: React + SSR、TypeScript対応
-- **実行**: `npm run dev` (開発) / `npm start` (本番)
-
-### Ruby (languages/ruby/)
-- **ファイル**: `hello.rb`, `Gemfile`
-- **特徴**: 簡潔な文法、UTF-8ネイティブサポート
-- **実行**: `ruby hello.rb`
-
-## 🎨 カスタマイズ
-
-### 新しい言語を追加するには
-
-1. `languages/新言語名/` ディレクトリを作成
-2. Hello Worldプログラムを作成
-3. `Dockerfile` を作成
-4. `docker-compose.yml` に追加
-5. `scripts/run.ps1` の `$AvailableLanguages` に追加
-
-### 例: Rust を追加
-```powershell
-mkdir languages\rust
-# main.rs と Dockerfile を作成
-# docker-compose.yml と run.ps1 を更新
-```
-
-## 🔧 トラブルシューティング
-
-### Docker Desktop が起動していない
-```
-Error: Cannot connect to the Docker daemon
-```
-→ Docker Desktop を起動してください
-
-### ポート競合
-```
-Error: Port already in use
-```
-→ 他のコンテナを停止: `docker-compose down`
-
-### イメージビルドエラー
-```
-Error: Failed to build image
-```
-→ クリーンビルド: `docker-compose build --no-cache`
-
-## 📊 パフォーマンス比較
-
-| 言語 | ビルド時間 | 実行時間 | イメージサイズ |
-|------|------------|----------|----------------|
-| Go | 30秒 | 0.1秒 | 10MB |
-| Node.js | 15秒 | 0.2秒 | 35MB |
-| Ruby | 20秒 | 0.25秒 | 40MB |
-| Python | 10秒 | 0.3秒 | 45MB |
-| C# | 45秒 | 0.4秒 | 55MB |
-| Java | 20秒 | 0.5秒 | 70MB |
-| Next.js | 60秒 | 0.8秒 | 85MB |
-
-## 🤝 コントリビューション
-
-1. このリポジトリをフォーク
-2. 新しいブランチを作成: `git checkout -b feature/新機能`
-3. 変更をコミット: `git commit -m '新機能を追加'`
-4. ブランチにプッシュ: `git push origin feature/新機能`
-5. プルリクエストを作成
+詳細は各ディレクトリのREADMEをご覧ください。
 
 ## 📄 ライセンス
 
-MIT License - 詳細は [LICENSE](LICENSE) ファイルを参照
+MIT License
 
 ## 🙋‍♂️ 作成者
 
