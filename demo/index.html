@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>インタラクティブ デモ</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --bg:#f4f6f9;--surface:#ffffff;--text:#1a1a2e;
+    --primary:#6366f1;--primary-hover:#4f46e5;
+    --border:#e2e8f0;--shadow:0 4px 24px rgba(0,0,0,.08);
+    --radius:14px;--transition:.3s cubic-bezier(.4,0,.2,1);
+  }
+  [data-theme="dark"]{
+    --bg:#0f172a;--surface:#1e293b;--text:#e2e8f0;
+    --primary:#818cf8;--primary-hover:#a5b4fc;
+    --border:#334155;--shadow:0 4px 24px rgba(0,0,0,.4);
+  }
+
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+    background:var(--bg);color:var(--text);
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    transition:background var(--transition),color var(--transition);
+  }
+
+  .container{
+    width:min(420px,90vw);display:flex;flex-direction:column;gap:24px;
+  }
+
+  .card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:32px;
+    box-shadow:var(--shadow);
+    transition:background var(--transition),border-color var(--transition),box-shadow var(--transition);
+  }
+
+  h1{font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:8px}
+  .subtitle{text-align:center;font-size:.875rem;opacity:.6;margin-bottom:0}
+
+  /* --- Counter --- */
+  .counter-section h2{font-size:1rem;font-weight:600;margin-bottom:20px;text-align:center}
+  .counter-display{
+    font-size:4rem;font-weight:800;text-align:center;
+    font-variant-numeric:tabular-nums;
+    color:var(--primary);line-height:1.1;margin-bottom:24px;
+    transition:color var(--transition);
+  }
+  .counter-buttons{display:flex;gap:12px;justify-content:center}
+  .counter-buttons button{
+    width:64px;height:64px;border-radius:50%;border:2px solid var(--primary);
+    background:transparent;color:var(--primary);font-size:1.75rem;font-weight:600;
+    cursor:pointer;transition:all var(--transition);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .counter-buttons button:hover{
+    background:var(--primary);color:#fff;transform:scale(1.1);
+  }
+  .counter-buttons button:active{transform:scale(.95)}
+
+  /* --- Theme toggle --- */
+  .theme-card{display:flex;align-items:center;justify-content:space-between}
+  .theme-label{font-weight:600;font-size:.95rem}
+
+  .toggle{
+    position:relative;width:56px;height:30px;cursor:pointer;
+  }
+  .toggle input{display:none}
+  .toggle .slider{
+    position:absolute;inset:0;border-radius:999px;
+    background:var(--border);transition:background var(--transition);
+  }
+  .toggle .slider::after{
+    content:"";position:absolute;left:3px;top:3px;
+    width:24px;height:24px;border-radius:50%;
+    background:var(--primary);transition:transform var(--transition);
+  }
+  .toggle input:checked+.slider{background:var(--primary)}
+  .toggle input:checked+.slider::after{
+    transform:translateX(26px);background:#fff;
+  }
+
+  .theme-icons{display:flex;gap:6px;font-size:1.1rem;opacity:.7}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <h1>インタラクティブ デモ</h1>
+    <p class="subtitle">シンプルなカウンターアプリ</p>
+  </div>
+
+  <div class="card counter-section">
+    <h2>カウンター</h2>
+    <div class="counter-display" id="count">0</div>
+    <div class="counter-buttons">
+      <button id="dec" aria-label="減らす">&minus;</button>
+      <button id="inc" aria-label="増やす">&plus;</button>
+    </div>
+  </div>
+
+  <div class="card theme-card">
+    <span class="theme-label">テーマ切替</span>
+    <div class="theme-icons">
+      <span>☀️</span>
+      <label class="toggle">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider"></span>
+      </label>
+      <span>🌙</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const countEl = document.getElementById("count");
+  const incBtn = document.getElementById("inc");
+  const decBtn = document.getElementById("dec");
+  const themeToggle = document.getElementById("theme-toggle");
+  let count = 0;
+
+  function update() {
+    countEl.textContent = count;
+    countEl.style.transform = "scale(1.15)";
+    setTimeout(() => countEl.style.transform = "scale(1)", 150);
+  }
+
+  incBtn.addEventListener("click", () => { count++; update(); });
+  decBtn.addEventListener("click", () => { count--; update(); });
+
+  themeToggle.addEventListener("change", () => {
+    document.documentElement.dataset.theme = themeToggle.checked ? "dark" : "light";
+  });
+
+  if (matchMedia("(prefers-color-scheme:dark)").matches) {
+    themeToggle.checked = true;
+    document.documentElement.dataset.theme = "dark";
+  }
+</script>
+</body>
+</html>
